@@ -7,162 +7,175 @@
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
-body
+html,body
 {
-    margin: 0;
-    padding: 0;
-    text-align: left;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
-  
-/* Include the padding and border in an element's total width and height */
-* 
+html.active
+{
+    overflow-y: hidden;
+}
+html 
 {
     box-sizing: border-box;
 }
   
-  /* Remove margins and padding from the list */
-ul 
+*, *::before, *::after 
 {
+    box-sizing: inherit;
     margin: 0;
     padding: 0;
 }
   
-/* Style the list items */
-ul li 
+body 
 {
-    cursor: pointer;
-    position: relative;
-    padding: 12px 8px 12px 40px;
-    list-style-type: none;
-    background: #eee;
-    font-size: 18px;
-    transition: 0.2s;    
-/* make the list items unselectable */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+   line-height: 1.4;
 }
   
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) 
+.container 
 {
-    background: #f9f9f9;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #333;
+    height: 90vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    overflow-y: auto;
 }
   
-/* Darker background-color on hover */
-ul li:hover 
+.app-title 
 {
-    background: #ddd;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 80px;
+    opacity: 0.5;
+    text-transform: uppercase;
 }
   
-/* When clicked on, add a background color and strike out text */
-ul li.checked 
+svg
 {
-    color: #888;
+    width: 64px;
+    height: 64px;
+}
+  
+.todo-list 
+{
+    list-style: none;
+    margin-bottom: 20px;
+}
+  
+.todo-item
+{
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.todo-item span 
+{
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 22px;
+}
+  
+.done span 
+{
     text-decoration: line-through;
 }
   
-/* Add a "checked" mark when clicked on */
-ul li.checked::before 
+input[type="checkbox"] 
 {
-    content: '';
-    position: absolute;
-    border-color: #000000;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
+    display: none;
 }
   
-/* Style the close button */
-.close 
+.tick 
 {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 12px 16px 12px 16px;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
   
-.close:hover 
+.tick::before 
 {
-    background-color: #f44336;
-    color: white;
+    content: '✓';
+    font-size: 20px;
+    display: none;
 }
   
-/* Style the header */
-.header 
+.done .tick::before 
 {
-    background-color: #fff;
-    padding: 30px 40px;
-    color: black;
+    display: inline;
 }
   
-/* Clear floats after the header */
-.header:after 
+.delete-todo 
 {
-    content: "";
-    display: table;
-    clear: both;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
 }
-.add
+  
+.delete-todo svg 
+{
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+  
+form 
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+  
+input[type="text"] 
+{
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 3px solid #333;
+}
+  
+  /* Add this below all the other styles */
+  
+.empty-state 
+{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+  
+.checklist-icon 
+{
+    margin-bottom: 20px;
+}
+  
+.empty-state__title, .empty-state__description 
+{
+    margin-bottom: 20px;
+}
+  
+/* Add this below the other styles */
+.todo-list:empty 
+{
+    display: none;
+}
+  
+.todo-list:empty + .empty-state 
 {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-/* Style the input */
-input 
-{
-    margin: 0;
-    border: none;
-    border-radius: 5px;
-    width: 75%;
-    padding: 10px;
-    float: left;
-    font-size: 16px;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
-    max-width: 600px;
-    margin: 0 40px 0 0;
-}
-  
-/* Style the "Add" button */
-.addBtn 
-{
-    padding: 10px;
-    width: 15%;
-    background: #d9d9d9;
-    color: #555;
-    float: left;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 0;
-    margin: 0 40px;
-}
-  
-.addBtn:hover 
-{
-    background-color: #bbb;
-}
-@media (max-width: 768px)
-{
-    .header
-    {
-        padding: 15px 20px;
-    }
-    input
-    {
-        margin: 0;
-    }
-    .addBtn
-    {
-        padding: 10px 25px;
-        width: auto;
-        margin: 0;
-    }
 }
